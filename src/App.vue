@@ -1,26 +1,21 @@
 <template>
-  {{ selectedCategories }}
-  <div class="card flex flex-wrap justify-center gap-4">
-    <label
-      v-for="(category, index) in CATEGORIES"
-      :key="index"
-      class="flex items-center gap-2"
-    >
-      <Checkbox
-        v-model="selectedCategories"
-        :value="category"
-      />
-      {{ category }}
-    </label>
-  </div>
+  <section class="h-dvh bg-gradient-to-tr from-orange-100 to-violet-200">
+    <section class="relative h-full w-full overflow-y-auto flex flex-col">
+      <section class="flex flex-initial items-center justify-center uppercase font-caption text-gray-800 text-8xl py-32 select-none">
+        Jokes App
+      </section>
+
+      <section class="flex flex-col items-center flex-auto">
+        <CategoriesList class="flex-initial" />
+        <Joke class="flex-auto py-24 max-w-[30%]" />
+      </section>
+
+      <section class="flex-initial text-center text-muted-color-emphasis py-4">
+        {{ new Date().getFullYear() }} &copy; Jokes App
+      </section>
+    </section>
+  </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
-const CATEGORIES = ['Programming', 'Misc', 'Dark', 'Pun', 'Spooky', 'Christmas'];
-
-const selectedCategories = ref<string[]>([]);
-
 </script>
-
