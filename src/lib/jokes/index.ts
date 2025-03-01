@@ -17,9 +17,9 @@ class JokesHttpClient {
 
   public async getJoke(categories: string[]) {
     const categoriesParam = categories.join(',');
-    const url = new URL(categoriesParam, '/joke');
+    const url = `/joke/${categoriesParam}`;
 
-    const response = await this.request<GetJokeResponse>('GET', url.toString());
+    const response = await this.request<GetJokeResponse>('GET', url);
 
     if (!response) {
       return null;

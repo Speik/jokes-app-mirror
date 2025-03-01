@@ -24,21 +24,27 @@
         <figure
           v-for="category in categories"
           :key="category"
-          v-ripple
           class="
-            px-8 py-4 rounded-full cursor-pointer select-none
+            px-8 py-4 rounded-full select-none
           bg-gray-50 text-gray-800 drop-shadow-md
-          [&.selected_.fa-tag]:text-white
-          hover:bg-gray-100 hover:[&.selected]:bg-gray-700
+          [&.selected_.fa-tag]:text-white [&.selected_.fa-spinner]:text-white
             transition-all transition-duration-300
           "
           :class="{
             'selected bg-gray-800 text-white drop-shadow-xl': isCategorySelected(category),
+            'cursor-pointer hover:bg-gray-100 hover:[&.selected]:bg-gray-700': !isJokeLoading,
+            'opacity-60': isJokeLoading,
           }"
           @click="onCategoryClick(category)"
         >
           <figcaption class="font-semibold tracking-wider">
-            <i class="fa-solid fa-tag text-muted-color-emphasis transition-all transition-duration-300" />
+            <i
+              class="text-muted-color-emphasis transition-all transition-duration-300"
+              :class="{
+                'fa-solid fa-tag': !isJokeLoading,
+                'fa-solid fa-spinner spin': isJokeLoading,
+              }"
+            />
             <span class="ml-2">{{ category }}</span>
           </figcaption>
         </figure>
@@ -52,6 +58,12 @@ import { onMounted, reactive } from 'vue';
 
 import { jokesHttpClient } from '@/lib/jokes';
 import { useLoading } from '@/composables/use-loading';
+
+type CategoriesListProps = {
+  isJokeLoading: boolean;
+};
+
+const props = defineProps<CategoriesListProps>();
 
 const DEFAULT_CATEGORY = 'Any';
 
@@ -90,6 +102,8 @@ const unselectCategory = (category: string) => {
 };
 
 const onCategoryClick = (category: string) => {
+  if (props.isJokeLoading) return;
+
   return selectedCategories.value.includes(category)
     ? unselectCategory(category)
     : selectCategory(category);

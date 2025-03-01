@@ -8,10 +8,12 @@
       <section class="flex flex-col items-center flex-auto">
         <CategoriesList
           v-model="selectedCategories"
+          :is-joke-loading="isJokeLoading"
           class="flex-initial"
         />
 
         <Joke
+          v-model:loading="isJokeLoading"
           :selected-categories="selectedCategories"
           class="flex-auto py-24 max-w-[30%]"
         />
@@ -25,7 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
+import Joke from '@/components/Joke.vue';
 
 const selectedCategories = reactive<string[]>([]);
+const isJokeLoading = ref(false);
 </script>
