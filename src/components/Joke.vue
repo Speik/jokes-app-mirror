@@ -79,10 +79,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import type { TooltipOptions } from 'primevue';
 
 import { JokeType } from '@/declarations';
+
+type JokeProps = {
+  selectedCategories: string[];
+}
+
+const props = defineProps<JokeProps>();
 
 const SINGLE_JOKE = JSON.parse('{\n' +
   '  "error": false,\n' +
@@ -134,6 +140,8 @@ const setupTooltipOptions: TooltipOptions = {
 const tags = ['Christmas', 'nsfw', 'religious', 'sexist'];
 
 const isPunchlineShown = ref(false);
+
+watch(props.selectedCategories, (value) => console.log(value), { deep: true });
 </script>
 
 <style scoped>
