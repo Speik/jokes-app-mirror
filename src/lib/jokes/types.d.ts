@@ -3,7 +3,7 @@ import { JokeType } from '@/declarations';
 type GetCategoriesResponse = {
   error: boolean;
   categories: string[];
-  categoryAliases: { alias: string, resolved: string}[],
+  categoryAliases: { alias: string; resolved: string; }[],
   timestamp: number;
 }
 
