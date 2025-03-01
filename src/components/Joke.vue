@@ -1,7 +1,13 @@
 <template>
   <section>
     <figure class="flex justify-center gap-4">
-      <section class="flex items-start justify-center flex-initial opacity-40">
+      <section
+        class="flex items-start justify-center flex-initial transition-all transition-duration-300"
+        :class="{
+          'opacity-40': !isLoading,
+          'opacity-0': isLoading,
+        }"
+      >
         <i class="fa-solid fa-quote-left text-4xl" />
       </section>
 
@@ -14,7 +20,13 @@
         <span v-else>{{ data?.joke ?? data?.setup }}</span>
       </figcaption>
 
-      <section class="flex items-end justify-center flex-initial opacity-40">
+      <section
+        class="flex items-end justify-center flex-initial transition-all transition-duration-300"
+        :class="{
+          'opacity-40': !isLoading,
+          'opacity-0': isLoading,
+        }"
+      >
         <i class="fa-solid fa-quote-right text-4xl" />
       </section>
     </figure>
@@ -95,8 +107,9 @@ import type { TooltipOptions } from 'primevue';
 import type { GetJokeResponse } from '@/lib/jokes/types';
 
 import { JokeType } from '@/declarations';
-import { useLoading } from '@/composables/use-loading';
 import { jokesHttpClient } from '@/lib/jokes';
+
+import { useLoading } from '@/composables/use-loading';
 
 type JokeProps = {
   selectedCategories: string[];
@@ -132,7 +145,7 @@ const LOADING_MESSAGES = [
   'Compiling joke… This one’s a masterpiece.',
   'Searching for the meaning of humor…',
   'Spinning the comedy wheel…',
-  'Waiting for the joke fairy to approve…'
+  'Waiting for the joke fairy to approve…',
 ];
 
 const data = ref<GetJokeResponse | null>(null);
